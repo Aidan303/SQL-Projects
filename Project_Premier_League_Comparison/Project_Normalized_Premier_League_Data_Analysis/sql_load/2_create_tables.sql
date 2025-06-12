@@ -115,3 +115,69 @@ CREATE TABLE IF NOT EXISTS normalize_prem.fact_team_salaries
    total_annual_salary INT 
 );
 
+
+-- fact_player_possession_stats.player_id → dim_players.player_id
+ALTER TABLE normalize_prem.fact_player_possession_stats
+ADD CONSTRAINT fk_fact_player_possession_stats_player
+FOREIGN KEY (player_id)
+REFERENCES normalize_prem.dim_players(player_id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+-- fact_player_salaries.player_id → dim_players.player_id
+ALTER TABLE normalize_prem.fact_player_salaries
+ADD CONSTRAINT fk_fact_player_salaries_player
+FOREIGN KEY (player_id)
+REFERENCES normalize_prem.dim_players(player_id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+-- fact_player_stats.player_id → dim_players.player_id
+ALTER TABLE normalize_prem.fact_player_stats
+ADD CONSTRAINT fk_fact_player_stats_player
+FOREIGN KEY (player_id)
+REFERENCES normalize_prem.dim_players(player_id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+-- fact_player_stats.team_id → dim_teams.team_id
+ALTER TABLE normalize_prem.fact_player_stats
+ADD CONSTRAINT fk_fact_player_stats_team
+FOREIGN KEY (team_id)
+REFERENCES normalize_prem.dim_teams(team_id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+-- fact_standings.team_id → dim_teams.team_id
+ALTER TABLE normalize_prem.fact_standings
+ADD CONSTRAINT fk_fact_standings_team
+FOREIGN KEY (team_id)
+REFERENCES normalize_prem.dim_teams(team_id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+-- fact_team_overall_stats.team_id → dim_teams.team_id
+ALTER TABLE normalize_prem.fact_team_overall_stats
+ADD CONSTRAINT fk_fact_team_overall_stats_team
+FOREIGN KEY (team_id)
+REFERENCES normalize_prem.dim_teams(team_id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+-- fact_team_possession_stats.team_id → dim_teams.team_id
+ALTER TABLE normalize_prem.fact_team_possession_stats
+ADD CONSTRAINT fk_fact_team_possession_stats_team
+FOREIGN KEY (team_id)
+REFERENCES normalize_prem.dim_teams(team_id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+-- fact_team_salaries.team_id → dim_teams.team_id
+ALTER TABLE normalize_prem.fact_team_salaries
+ADD CONSTRAINT fk_fact_team_salaries_team
+FOREIGN KEY (team_id)
+REFERENCES normalize_prem.dim_teams(team_id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+COMMIT;
